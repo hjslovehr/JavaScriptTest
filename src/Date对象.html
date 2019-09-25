@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Date 对象</title>
+</head>
+<body>
+    
+    <div id="datetime"></div>
+
+    <script>
+        
+        function getTimeValueString(value) {
+            return (value > 10 ? value + "" : "0" + value);
+        }
+
+        function getCurrentDateTime() {
+            let time = new Date();
+            let year = time.getFullYear();
+            let month = time.getMonth() + 1;
+            let date = time.getDate();
+            let hour = time.getHours();
+            let minute = time.getMinutes();
+            let second = time.getSeconds();
+
+            return (year 
+                    + "-" + getTimeValueString(month) 
+                    + "-" + getTimeValueString(date) 
+                    + " " + getTimeValueString(hour) 
+                    + ":" + getTimeValueString(minute) 
+                    + ":" + getTimeValueString(second));
+        }
+        
+        let datetime = document.getElementById("datetime");
+        datetime.innerHTML = getCurrentDateTime();
+
+    </script>
+
+</body>
+</html>

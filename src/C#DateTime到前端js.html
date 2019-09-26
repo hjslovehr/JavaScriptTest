@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>C#DateTime到前端js</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+            将 C# datetime Json 序列化之后的日期字符串转为 JS 的日期对象
+            dateStr:  C# Json 返回的日期对象字符串，例如 "/Date(1568799660000)/"
+        */
+        function getDateFromCSharpString(dateStr) {
+            // 方法一
+            var start = dateStr.indexOf("(");
+            var end = dateStr.indexOf(")");
+            var validDate = dateStr.substring(start + 1, end);
+            return (new Date(+validDate));
+
+            // 方法二
+            // return (new Date(+dateStr.replace(/\/|[a-zA-Z]|\(|\)/g, "")))
+        }
+
+        var dateStr = "/Date(1568799660000)/";
+
+        console.log(dateStr);
+
+        var date = getDateFromCSharpString(dateStr);
+        console.log(date);
+    </script>
+
+</body>
+
+</html>

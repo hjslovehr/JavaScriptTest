@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>获取当前时间函数</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <div>
+        <button onclick="console.log(getCurrentDateTime());">Get current date time</button>
+    </div>
+
+    <script>
+        /*
+            description：正整数数字转字符串带有前置0
+            numberToStringAndFontZore(number, length)
+            param：
+                number: Number 任意正整数
+                length: Number 正整数，number 参数的长度
+
+            example：
+                numberToStringAndFontZore(123, 1)           ==> "123"
+                numberToStringAndFontZore(123, 2)           ==> "123"
+                numberToStringAndFontZore(123, 3)           ==> "123"
+                numberToStringAndFontZore(123, 4)           ==> "0123"
+                numberToStringAndFontZore(123, 5)           ==> "00123"
+                numberToStringAndFontZore(123, 6)           ==> "000123"
+                numberToStringAndFontZore(1234.5657, 4)     ==> "1235"
+                numberToStringAndFontZore(' ', 4)           ==> "0000"
+                numberToStringAndFontZore('abc12312', 4)    ==> "0000"
+                numberToStringAndFontZore('123abc', 4)      ==> "0000"
+                numberToStringAndFontZore('abc', 4)         ==> "0000"
+                numberToStringAndFontZore(null, 4)          ==> "0000"
+                umberToStringAndFontZore(undefined, 4)      ==> "0000"
+                numberToStringAndFontZore(NaN, 4)           ==> "0000"
+        */
+        // 数字转字符串带有前置0
+        function numberToStringAndFontZore(number, length) {
+            number = Math.round((+number || 0), 0);
+            length = length || 0;
+
+            var str = number + "";
+            var len = str.length;
+            var zeroStr = "";
+
+            if (length > len) {
+                // 如果长度比整数的值长度大，则前置补零
+                for (var index = 0; index < length - len; index++) {
+                    zeroStr += "0";
+                }
+            }
+
+            return (zeroStr + number);
+        }
+
+        // 获取当前时间，格式： YYYY-MM-DD HH-mm-ss
+        function getCurrentDateTime() {
+            var now = new Date();
+
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+
+            var toString = year +
+                "-" + numberToStringAndFontZore(month, 2) +
+                "-" + numberToStringAndFontZore(day, 2) +
+                " " + numberToStringAndFontZore(hour, 2) +
+                ":" + numberToStringAndFontZore(minute, 2) +
+                ":" + numberToStringAndFontZore(second, 2);
+
+            return toString;
+        }
+    </script>
+
+    <script src="" async defer></script>
+</body>
+
+</html>

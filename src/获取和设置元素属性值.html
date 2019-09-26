@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <div id="div">div</div>
+
+    <br>
+
+    <input type="text" id="input">
+
+    <br>
+
+    <select name="select" id="select">
+        <option code="01" value="1">1</option>
+        <option code="02" value="2">2</option>
+        <option code="03" value="3">3</option>
+        <option code="04" value="4">4</option>
+        <option code="05" value="5">5</option>
+    </select>
+    <button id="btnGetSelectAttribute">GetSelectAttribute</button>
+    <button id="btnSetSelectAttribute">SetSelectAttribute</button>
+
+    <script>
+        // 根据 ID 获取 HTML 元素
+        function getElementById(id) {
+            return document.getElementById(id);
+        }
+
+        // 根据 ID（isElement：false，id 代表元素 id；true：id 代表元素本身） 和 属性名 获取 HTML 元素的属性值
+        function getAttribute(id, attribute, isElement) {
+            if (isElement) {
+                return id.getAttribute(attribute);
+            } else {
+                return getElementById(id).getAttribute(attribute);
+            }
+        }
+
+        // 根据 ID（isElement：false，id 代表元素 id；true：id 代表元素本身） 设置 HTML 元素的属性值
+        function setAttribute(id, attribute, value, isElement) {
+            if (isElement) {
+                id.setAttribute(attribute, value);
+            } else {
+                var element = getElementById(id);
+                if (!element) {
+                    return false;
+                }
+                element.setAttribute(attribute, value);
+            }
+
+            return true;
+        }
+
+        console.log(setAttribute("div", "data-code", "123"));
+        console.log(getAttribute("div", "data-code"));
+
+        console.log(setAttribute("input", "data-code", "123"));
+        console.log(getAttribute("input", "data-code"));
+
+        getElementById("btnGetSelectAttribute").onclick = function () {
+            var select = getElementById("select");
+            var index = select.selectedIndex;
+            var code = getAttribute(select.options[index], "code", true);
+            var velue = getAttribute(select.options[index], "value", true);
+
+            console.log("code : " + code);
+            console.log("velue : " + velue);
+        };
+
+        getElementById("btnSetSelectAttribute").onclick = function () {
+            var select = getElementById("select");
+            var index = select.selectedIndex;
+
+            var code = getAttribute(select.options[index], "code", true);
+            var velue = getAttribute(select.options[index], "value", true);
+
+            console.log(setAttribute(select.options[index], "data-code", code, true));
+            console.log(setAttribute(select.options[index], "data-value", velue, true));
+        };
+
+        console.log("\n");
+    </script>
+
+    <script src="" async defer></script>
+</body>
+
+</html>

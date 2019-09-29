@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Date ToString</title>
+</head>
+
+<body>
+
+    <script>
+        // 数字转字符串带有前置0
+        function numberToStringAndFontZore(number, length) {
+            number = Math.round((+number || 0), 0);
+            length = length || 0;
+
+            var str = number + "";
+            var len = str.length;
+            var zeroStr = "";
+
+            if (length > len) {
+                // 如果长度比整数的值长度大，则前置补零
+                for (var index = 0; index < length - len; index++) {
+                    zeroStr += "0";
+                }
+            }
+
+            return (zeroStr + number);
+        }
+
+        // 日期格式化成字符串
+        function dateToString(date, separator) {
+            var dateTemp = new Date(date || new Date());
+            var spt = String(separator || "-");
+
+            var year = dateTemp.getFullYear();
+            var month = dateTemp.getMonth() + 1;
+            var day = dateTemp.getDate();
+            var hour = dateTemp.getHours();
+            var minute = dateTemp.getMinutes();
+            var second = dateTemp.getSeconds();
+
+            var toString = year +
+                spt + numberToStringAndFontZore(month, 2) +
+                spt + numberToStringAndFontZore(day, 2) +
+                " " + numberToStringAndFontZore(hour, 2) +
+                ":" + numberToStringAndFontZore(minute, 2) +
+                ":" + numberToStringAndFontZore(second, 2);
+
+            return toString;
+        }
+
+        // 将 C# datetime Json 序列化之后的日期字符串转为 JS 的日期对象
+        // dateStr:  C# Json 返回的日期对象字符串，例如 "/Date(1568799660000)/"
+        function getDateFromCSharpString(dateStr) {
+            // 方法一
+            var start = dateStr.indexOf("(");
+            var end = dateStr.indexOf(")");
+            var validDate = dateStr.substring(start + 1, end);
+            return (new Date(+validDate));
+
+            // 方法二
+            // return (new Date(+dateStr.replace(/\/|[a-zA-Z]|\(|\)/g, "")))
+        }
+
+        console.log(dateToString(getDateFromCSharpString("/Date(1568799660000)/")));
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mustache 简单使用</title>
+    <script src="js/libs/mustache.js"></script>
+</head>
+
+<body>
+
+    <button id="btnAdd">Add</button>
+    <button id="btnClear">Clear</button>
+    <div>
+        <ul id="content"></ul>
+    </div>
+
+    <script>
+        ;
+        (function () {
+
+            function getElementById(id) {
+                return document.getElementById(id);
+            }
+
+            var content = document.getElementById("content");
+
+            getElementById("btnAdd").onclick = function () {
+                var template =
+                    "<li><strong>Name: </strong><span>{{name}}</span><span>, </span><strong>Age: </strong><span>{{age}}</span></li>";
+                for (var index = 0; index < 10; index++) {
+                    var obj = {
+                        name: 'jim' + (index + 1),
+                        age: 20 + (Math.floor(Math.random() * 10 + 1))
+                    };
+                    content.innerHTML += Mustache.render(template, obj);
+                }
+            };
+
+            getElementById("btnClear").onclick = function () {
+                content.innerHTML = "";
+            };
+
+        }());
+    </script>
+
+
+</body>
+
+</html>

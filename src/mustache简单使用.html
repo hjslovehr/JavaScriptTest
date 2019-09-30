@@ -12,10 +12,20 @@
 <body>
 
     <button id="btnAdd">Add</button>
+    <button id="btnAdd2">Add from template</button>
     <button id="btnClear">Clear</button>
     <div>
         <ul id="content"></ul>
     </div>
+
+    <br>
+    <template id="template">
+        <li>
+            <strong>Name: </strong><span>{{name}}</span>
+            <span>, </span>
+            <strong>Age: </strong><span>{{age}}</span>
+        </li>
+    </template>
 
     <script>
         ;
@@ -27,16 +37,23 @@
 
             var content = document.getElementById("content");
 
+            var strTemplate =
+                "<li><strong>Name: </strong><span>{{name}}</span><span>, </span><strong>Age: </strong><span>{{age}}</span></li>";
             getElementById("btnAdd").onclick = function () {
-                var template =
-                    "<li><strong>Name: </strong><span>{{name}}</span><span>, </span><strong>Age: </strong><span>{{age}}</span></li>";
-                for (var index = 0; index < 10; index++) {
-                    var obj = {
-                        name: 'jim' + (index + 1),
-                        age: 20 + (Math.floor(Math.random() * 10 + 1))
-                    };
-                    content.innerHTML += Mustache.render(template, obj);
-                }
+                var obj = {
+                    name: 'jim' + (Math.floor(Math.random() * 10 + 1) + 1),
+                    age: 20 + (Math.floor(Math.random() * 10 + 1))
+                };
+                content.innerHTML += Mustache.render(strTemplate, obj);
+            };
+
+            var template = getElementById("template").innerHTML.trim();
+            getElementById("btnAdd2").onclick = function () {
+                var obj = {
+                    name: 'jim' + (Math.floor(Math.random() * 10 + 1) + 1),
+                    age: 20 + (Math.floor(Math.random() * 10 + 1))
+                };
+                content.innerHTML += Mustache.render(template, obj);
             };
 
             getElementById("btnClear").onclick = function () {
